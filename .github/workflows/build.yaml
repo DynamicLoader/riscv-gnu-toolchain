@@ -15,7 +15,7 @@ jobs:
       matrix:
         os:     [ubuntu-20.04, ubuntu-22.04]
         mode:   [newlib, linux, musl]
-        target: [rv32gc-ilp32d, rv64gc-lp64d]
+        target: [rv32gc-ilp32, rv64gc-lp64]
         compiler: [gcc, llvm]
         exclude:
           - mode: musl
@@ -41,7 +41,7 @@ jobs:
         run: |
           TARGET_TUPLE=($(echo ${{ matrix.target }} | tr "-" "\n"))
           tcflags="-D__DYNAMIC_REENT__ -fPIE"
-          BUILD_TOOLCHAIN="./configure --prefix=/opt/riscv --with-arch=${TARGET_TUPLE[0]} --with-abi=${TARGET_TUPLE[1]} --with-cmodel=medany --with-target-cflags=-D__DYNAMIC_REENT__ --with-target-cflags=-fPIE --with-target-cxxflags=-D__DYNAMIC_REENT__ --with-target-cxxflags=-fPIE"
+          BUILD_TOOLCHAIN="./configure --prefix=/opt/riscv --with-arch=${TARGET_TUPLE[0]} --with-abi=${TARGET_TUPLE[1]} --with-cmodel=medany --with-target-cflags=-D__DYNAMIC_REENT__ --with-target-cxxflags=-D__DYNAMIC_REENT__"
           if [ "${{ matrix.compiler }}" == "llvm" ]; then # build toolchain with llvm
             $BUILD_TOOLCHAIN --enable-llvm
           else
