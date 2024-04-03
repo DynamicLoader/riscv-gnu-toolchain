@@ -16,7 +16,7 @@ jobs:
       matrix:
         os:     [ubuntu-20.04, ubuntu-22.04]
         mode:   [newlib]
-        target: [rv32imac_zicsr-ilp32, rv64imac_zicsr-lp64]
+        target: [rv32imac_zicsr_zifencei-ilp32, rv64imac_zicsr_zifencei-lp64]
         compiler: [gcc, llvm]
         exclude:
           - mode: musl
